@@ -1,0 +1,191 @@
+/* .container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 25px;
+    gap: 15px;
+}
+
+.prijava {
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 0px 8px -4px grey;
+}
+
+.prijava button {
+    padding: 4px 10px;
+}
+
+.pagination a {
+    color: blue !important;
+} */
+
+/* CSS */
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --danger-color: #ef4444;
+    --danger-hover: #dc2626;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --radius: 12px;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+    padding: 0 0 2rem 0;
+    box-sizing: border-box;
+}
+
+.prijava {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.prijava:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.prijava-info {
+    margin-bottom: 1rem;
+}
+
+.prijava h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.prijava-badge {
+    display: inline-block;
+    background-color: #e0e7ff;
+    color: var(--primary-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+}
+
+.prijava-actions {
+    display: flex;
+    gap: 0.75rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1rem;
+}
+
+.prijava button {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease, opacity 0.15s ease;
+}
+
+.prijava button:active {
+    transform: scale(0.98);
+}
+
+.blueBtn {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.blueBtn:hover {
+    background-color: var(--primary-hover);
+}
+
+.redBtn {
+    background-color: #fee2e2;
+    color: var(--danger-color);
+}
+
+.redBtn:hover {
+    background-color: var(--danger-color);
+    color: #ffffff;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.pagination-container {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.pagination a.page-link, 
+.pagination span.page-link {
+    color: var(--primary-color) !important;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.15s ease;
+}
+
+.pagination a.page-link:hover {
+    color: var(--primary-hover) !important;
+    text-decoration: underline;
+}
+
+.pagination span.page-link.disabled {
+    color: var(--text-muted) !important;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-indicator {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.page-indicator strong {
+    color: var(--text-main);
+}

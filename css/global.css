@@ -1,0 +1,13 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.hidden {
+    display: none !important;
+}
+
+button:hover {
+    cursor: pointer;
+}

@@ -1,0 +1,328 @@
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --danger-color: #ef4444;
+    --success-color: #059669;
+    --warning-color: #d97706;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --radius: 12px;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
+}
+
+.student-header {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 2rem;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-content h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+}
+
+.logout-link {
+    color: var(--danger-color);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    font-weight: 500;
+}
+
+.logout-link:hover {
+    text-decoration: underline;
+}
+
+.student-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+.student-banner {
+    background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+    color: #ffffff;
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.student-banner h1 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.student-banner p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 1rem;
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+}
+
+.alert.success {
+    background-color: #d1fae5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.alert.error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.student-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1.5rem;
+}
+
+.dashboard-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.dashboard-card h2 {
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+    color: var(--text-main);
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+.input-group label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.input-group select,
+.input-group input[type="file"] {
+    width: 100%;
+    height: 42px;
+    padding: 0 0.875rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    color: var(--text-main);
+    background-color: #ffffff;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.input-group input[type="file"] {
+    padding: 0.5rem;
+    line-height: 1.5rem;
+}
+
+.input-group select:focus {
+    border-color: var(--primary-color);
+}
+
+.blueBtn {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.blueBtn:hover {
+    background-color: var(--primary-hover);
+}
+
+.status-box, .submission-status {
+    background-color: var(--bg-color);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    text-transform: uppercase;
+}
+
+.badge.ceka-odobrenje {
+    background-color: #fef3c7;
+    color: var(--warning-color);
+}
+
+.badge.odobreno {
+    background-color: #d1fae5;
+    color: var(--success-color);
+}
+
+.badge.ispravak {
+    background-color: #fee2e2;
+    color: var(--danger-color);
+}
+
+.comment-box {
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    background-color: #fffbeb;
+    border-left: 3px solid var(--warning-color);
+    border-radius: 4px;
+    font-size: 0.875rem;
+}
+
+.comment-box strong {
+    color: var(--warning-color);
+}
+
+.file-info {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+}
+
+.file-info a {
+    color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.file-info a:hover {
+    text-decoration: underline;
+}
+
+.card-hint {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 1rem 0 0.5rem 0;
+}
+
+.chat-card {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+}
+
+.chat-box {
+    flex: 1;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.chat-message {
+    max-width: 75%;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    font-size: 0.9375rem;
+    position: relative;
+}
+
+.chat-message.sent {
+    background-color: #e0e7ff;
+    color: var(--text-main);
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+}
+
+.chat-message.received {
+    background-color: #ffffff;
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+}
+
+.msg-author {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.25rem;
+}
+
+.chat-message.received .msg-author {
+    color: var(--text-muted);
+}
+
+.chat-message p {
+    margin: 0 0 0.25rem 0;
+    word-break: break-word;
+}
+
+.msg-time {
+    display: block;
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    text-align: right;
+}
+
+.chat-form {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.chat-form textarea {
+    flex: 1;
+    height: 42px;
+    padding: 0.5rem 0.875rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.9375rem;
+    resize: none;
+    outline: none;
+}
+
+.chat-form textarea:focus {
+    border-color: var(--primary-color);
+}
+
+.chat-form button {
+    height: 42px;
+}

@@ -6,7 +6,6 @@ $profesor_id = $_SESSION['korisnik_id'];
 $success = "";
 $error = "";
 
-// 1. Handle status, review, and comment updates
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['prijava_id']) && isset($_POST['status'])) {
     $prijava_id = (int)$_POST['prijava_id'];
     $new_status = $_POST['status'];
@@ -23,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['prijava_id']) && isse
     $stmt->close();
 }
 
-// 2. Handle sending a message from professor
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['prof_nova_poruka'])) {
     $porukaText = trim($_POST['prof_nova_poruka']);
     $prijavaId = (int)$_POST['chat_prijava_id'];
@@ -38,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['prof_nova_poruka'])) 
     }
 }
 
-// Pagination, Search, and Filter configuration
 $limit = 10;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 if ($page < 1) $page = 1;
@@ -49,7 +46,6 @@ $studij_filter = isset($_GET['studij_filter']) ? (int)$_GET['studij_filter'] : 0
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $searchParam = "%" . $search . "%";
 
-// Build dynamic WHERE clause
 $conditions = ["p.profesor_id = ?"];
 $types = "i";
 $bindParams = [$profesor_id];
@@ -74,7 +70,6 @@ if (!empty($search)) {
 
 $whereClause = "WHERE " . implode(" AND ", $conditions);
 
-// Count total matching rows
 $countQuery = "SELECT COUNT(DISTINCT p.id) FROM prijave_rada p 
                JOIN korisnici k ON p.student_id = k.id 
                JOIN studenti st ON p.student_id = st.korisnik_id 
@@ -91,7 +86,6 @@ $totalRows = $stmt->get_result()->fetch_row()[0];
 $totalPages = ceil($totalRows / $limit);
 $stmt->close();
 
-// Fetch paginated, filtered, and searched student applications
 $query = "SELECT p.*, k.ime AS student_ime, k.email AS student_email, s.naziv AS studij_naziv 
           FROM prijave_rada p 
           JOIN korisnici k ON p.student_id = k.id 
@@ -114,7 +108,6 @@ call_user_func_array([$stmt, 'bind_param'], $bindArgsData);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Fetch all majors for the filter dropdown
 $studijiResult = $db->query("SELECT id, naziv FROM studiji ORDER BY naziv ASC");
 ?>
 <!DOCTYPE html>
@@ -149,7 +142,6 @@ $studijiResult = $db->query("SELECT id, naziv FROM studiji ORDER BY naziv ASC");
         <?php endif; ?>
 
         <div class="prof-card">
-            <!-- Toolbar with Search and Filters -->
             <div class="prof-toolbar">
                 <form action="" method="GET" class="filter-form" style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
                     <div class="input-group" style="display: flex; align-items: center; gap: 0.5rem;">
@@ -295,7 +287,6 @@ $studijiResult = $db->query("SELECT id, naziv FROM studiji ORDER BY naziv ASC");
                 </table>
             </div>
 
-            <!-- Pagination maintaining search and filter parameters -->
             <?php if ($totalPages > 1): ?>
             <div class="pagination-wrapper">
                 <div class="pagination-container">

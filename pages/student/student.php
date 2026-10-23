@@ -113,7 +113,6 @@ $professors = $db->query("SELECT id, ime, email FROM korisnici WHERE uloga_id = 
         <?php endif; ?>
 
         <div class="student-grid">
-            <!-- Section 1: Mentor Selection & Topic -->
 <div class="dashboard-card">
     <h2>Odabir mentora i teme</h2>
     <?php if (!empty($application['profesor_ime'])): ?>

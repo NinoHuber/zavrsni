@@ -118,7 +118,6 @@ $result = $stmt->get_result();
                 </table>
             </div>
 
-            <!-- Pagination -->
             <?php if ($totalPages > 1): ?>
             <div class="pagination-wrapper">
                 <div class="pagination-container">

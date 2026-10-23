@@ -35,6 +35,7 @@ $studijiResult = $db->query("SELECT id, naziv FROM studiji ORDER BY naziv ASC");
             <div class="form-header">
                 <h2>Registracija</h2>
                 <p>Kreirajte novi korisnički račun</p>
+                <div id="prijavaAlert" class="alert" style="display: none; margin-top: 10px; padding: 10px; border-radius: 6px; font-size: 0.875rem;"></div>
             </div>
             <div class="form-grid">
                 <div class="input-group">
@@ -61,7 +62,6 @@ $studijiResult = $db->query("SELECT id, naziv FROM studiji ORDER BY naziv ASC");
                         <option value="1">Admin</option>
                     </select>
                 </div>
-                <!-- Major Selection (Visible only when role is Student) -->
                 <div class="input-group full-width" id="studijWrapper">
                     <label for="prijavaStudij">Studij</label>
                     <select name="studij_id" id="prijavaStudij">
@@ -109,7 +109,6 @@ $studijiResult = $db->query("SELECT id, naziv FROM studiji ORDER BY naziv ASC");
             const studijWrapper = document.getElementById('studijWrapper');
             const studijSelect = document.getElementById('prijavaStudij');
 
-            // Role ID 3 is Student
             if (ulogaSelect.value === '3') {
                 studijWrapper.style.display = 'flex';
                 studijSelect.setAttribute('required', 'required');
@@ -120,16 +119,16 @@ $studijiResult = $db->query("SELECT id, naziv FROM studiji ORDER BY naziv ASC");
             }
         }
 
-        // Run on page load to set correct initial visibility
         window.addEventListener('DOMContentLoaded', toggleStudijField);
 
         let buttons = document.querySelectorAll("button")
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].addEventListener("click", (e) => {
-                // Ignore clicks on back buttons or submit buttons here since they have custom handlers
                 if(e.target.classList.contains("backBtn") || e.target.id === "prijavaSubmit" || e.target.id === "loginSubmit") return;
                 
                 document.querySelector(".choice-card").classList.add("hidden")
+                document.getElementById('prijavaAlert').style.display = 'none';
+
                 switch(e.target.getAttribute("id")) {
                     case "prijavaBtn": 
                         document.querySelector(".prijava").classList.remove("hidden")
@@ -145,6 +144,7 @@ $studijiResult = $db->query("SELECT id, naziv FROM studiji ORDER BY naziv ASC");
         for (let i = 0; i < redButtons.length; i++) {
             redButtons[i].addEventListener("click", () => {
                 document.querySelector(".choice-card").classList.remove("hidden")
+                document.getElementById('prijavaAlert').style.display = 'none';
                 if(!(document.querySelector(".prijava").classList.contains("hidden"))) {
                     document.querySelector(".prijava").classList.add("hidden")
                 }
@@ -155,6 +155,9 @@ $studijiResult = $db->query("SELECT id, naziv FROM studiji ORDER BY naziv ASC");
         }
         
         document.querySelector("#prijavaSubmit").addEventListener("click", () => {
+            const alertBox = document.getElementById('prijavaAlert');
+            alertBox.style.display = 'none';
+
             if(!verifyPassword()) {
                 return
             }
@@ -175,16 +178,44 @@ $studijiResult = $db->query("SELECT id, naziv FROM studiji ORDER BY naziv ASC");
                 },
                 body: JSON.stringify(prijava)
             })
-            .then(() => {window.location.reload()})
+            .then(response => response.json())
+            .then(data => {
+                alertBox.style.display = 'block';
+                if(data.greska) {
+                    alertBox.style.backgroundColor = '#fee2e2';
+                    alertBox.style.color = '#991b1b';
+                    alertBox.textContent = data.greska;
+                } else if(data.poruka) {
+                    alertBox.style.backgroundColor = '#d1fae5';
+                    alertBox.style.color = '#065f46';
+                    alertBox.textContent = data.poruka;
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                }
+            })
+            .catch(error => {
+                alertBox.style.display = 'block';
+                alertBox.style.backgroundColor = '#fee2e2';
+                alertBox.style.color = '#991b1b';
+                alertBox.textContent = "Došlo je do pogreške u komunikaciji s poslužiteljem.";
+            });
         })
 
         function verifyPassword() {
+            const alertBox = document.getElementById('prijavaAlert');
             if(!(document.querySelector("#prijavaLozinka").value === document.querySelector("#prijavaLozinka2").value)) {
-                alert("Lozinke nisu iste")
+                alertBox.style.display = 'block';
+                alertBox.style.backgroundColor = '#fee2e2';
+                alertBox.style.color = '#991b1b';
+                alertBox.textContent = "Lozinke nisu iste";
                 return false
             }
             if(document.querySelector("#prijavaLozinka").value.length < 8) {
-                alert("Lozinka mora imati barem 8 simbola")
+                alertBox.style.display = 'block';
+                alertBox.style.backgroundColor = '#fee2e2';
+                alertBox.style.color = '#991b1b';
+                alertBox.textContent = "Lozinka mora imati barem 8 simbola";
                 return false
             }
 

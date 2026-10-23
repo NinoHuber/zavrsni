@@ -11,6 +11,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !isset($data["prihvacenId"])) {
         $uloga_id = (int)$data["uloga"];
         $studij_id = isset($data["studij_id"]) ? (int)$data["studij_id"] : 0;
         
+        $checkStmt = $db->prepare("SELECT id FROM korisnici WHERE email = ?");
+        $checkStmt->bind_param("s", $email);
+        $checkStmt->execute();
+        $checkStmt->store_result();
+
+        if ($checkStmt->num_rows > 0) {
+            $checkStmt->close();
+            echo json_encode(["greska" => "Korisnik s ovom e-mail adresom već postoji."]);
+            exit;
+        }
+        $checkStmt->close();
+
         $query = "INSERT INTO korisnici(ime, email, lozinka, uloga_id)
                 VALUES (?, ?, ?, ?)";
             
@@ -30,7 +42,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && !isset($data["prihvacenId"])) {
 
             echo json_encode(["poruka" => "Prijava uspješno dodana"]);
         } else {
-            echo json_encode(["poruka" => "Greška prilikom registracije"]);
+            echo json_encode(["greska" => "Greška prilikom registracije"]);
         }
         exit;
 }

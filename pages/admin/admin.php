@@ -23,7 +23,7 @@
             </div>
         </section>
 
-        <section class="stats-grid">
+<section class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon blue">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -36,6 +36,7 @@
                     $stmt = $db->prepare($query);
                     $stmt->execute();
                     $ukupno = $stmt->get_result()->fetch_assoc()["total_users"];
+                    $stmt->close();
                     echo '<p class="stat-number">'. $ukupno .'</p>';
                     ?>
                 </div>
@@ -47,7 +48,14 @@
                 </div>
                 <div class="stat-content">
                     <h3>Čeka odobrenje</h3>
-                    <p class="stat-number">5</p>
+                    <?php 
+                    $queryCeka = 'SELECT COUNT(*) AS pending_users FROM korisnici WHERE status != "AKTIVAN"';
+                    $stmtCeka = $db->prepare($queryCeka);
+                    $stmtCeka->execute();
+                    $cekaOdobrenje = $stmtCeka->get_result()->fetch_assoc()["pending_users"];
+                    $stmtCeka->close();
+                    echo '<p class="stat-number">'. $cekaOdobrenje .'</p>';
+                    ?>
                     <span class="stat-trend warning">Zahtijeva pažnju</span>
                 </div>
             </div>
@@ -58,7 +66,15 @@
                 </div>
                 <div class="stat-content">
                     <h3>Odobreni radovi</h3>
-                    <p class="stat-number">43</p>
+                    <?php 
+                    $queryRadovi = 'SELECT COUNT(*) AS approved_theses FROM prijave_rada WHERE status = "Odobreno"';
+                    $stmtRadovi = $db->prepare($queryRadovi);
+                    $stmtRadovi->execute();
+                    $odobreniRadovi = $stmtRadovi->get_result()->fetch_assoc()["approved_theses"];
+                    $stmtRadovi->close();
+                    $db->close();
+                    echo '<p class="stat-number">'. $odobreniRadovi .'</p>';
+                    ?>
                     <span class="stat-trend positive">U tijeku izrade</span>
                 </div>
             </div>
